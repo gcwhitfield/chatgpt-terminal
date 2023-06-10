@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 absl-py = "*"
 requests = "*"
+colorama = "*"
 
 [dev-packages]
 pylint = "*"

@@ -5,6 +5,7 @@ import os
 import absl.app
 import absl.flags as flags
 import readline
+import colorama
 
 FLAGS = flags.FLAGS
 
@@ -39,7 +40,8 @@ def query_chatgpt(prompt: str) -> None:
     choices: list[str] = [
         choice["text"] for choice in response_data.get("choices", [])]
     output: str = "\n".join(choices)
-    print(output)
+    print(colorama.Fore.YELLOW +
+          colorama.Style.BRIGHT + output)
 
 
 def main(argv):
@@ -49,17 +51,23 @@ def main(argv):
     # Enable reverse search with CTRL+R
     readline.parse_and_bind("bind ^R em-inc-search-prev")
 
+    colorama.init()
+
     while True:
-        user_input: str = input("ChatGPT: ")
+        user_input: str = input(colorama.Fore.BLUE +
+                                colorama.Style.BRIGHT + "ChatGPT: ")
 
         if user_input.strip() == "":
             continue
 
         if user_input == "quit()":
-            print("Exiting the program...")
+            print(colorama.Fore.BLUE +
+                  colorama.Style.BRIGHT + "Exiting the program...")
             break
 
         query_chatgpt(user_input)
+
+    colorama.deinit()
 
 
 if __name__ == "__main__":
