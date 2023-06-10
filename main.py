@@ -4,6 +4,7 @@ import json
 import os
 import absl.app
 import absl.flags as flags
+import readline
 
 FLAGS = flags.FLAGS
 
@@ -38,9 +39,15 @@ def query_chatgpt(prompt: str) -> None:
 
 def main(argv):
 
+    readline.set_history_length(1000)  # Set the maximum number of history entries to store
+    readline.parse_and_bind("bind ^R em-inc-search-prev")  # Enable reverse search with CTRL+R
+
     while True:
         user_input: str = input("ChatGPT: ")
-
+        
+        if user_input.strip() == "":
+            continue   
+        
         if user_input == "quit()":
             print("Exiting the program...")
             break
