@@ -12,7 +12,7 @@ _MODEL = flags.DEFINE_string("model", "text-davinci-003", "The model to use for 
 _MAX_TOKENS = flags.DEFINE_integer("max_tokens", 4000, "The maximum number of tokens to generate.")
 _TEMPERATURE = flags.DEFINE_float("temperature", 0.0, "The temperature value for controlling randomness.")
 
-API_ENDPOINT = "https://api.openai.com/v1/completions"
+_API_ENDPOINT = "https://api.openai.com/v1/completions"
 
 def query_chatgpt(prompt: str) -> None:
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -30,7 +30,7 @@ def query_chatgpt(prompt: str) -> None:
     }
 
     response = requests.post(
-        API_ENDPOINT, headers=headers, data=json.dumps(data))
+        _API_ENDPOINT, headers=headers, data=json.dumps(data))
     response_data = response.json()
     choices: list[str] = [
         choice["text"] for choice in response_data.get("choices", [])]
